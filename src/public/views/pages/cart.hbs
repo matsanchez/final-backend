@@ -1,0 +1,45 @@
+{{>navbar}}
+<h2 class="text-center text-light rounded">Carrito de compras</h2>
+{{#if products.products.length}}
+  <table class="table text-light container">
+   <thead>
+    <tr>
+      <th scope="col">Producto</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Precio x U.</th>
+      <th scope="col">Subtotal</th>
+      <th scope="col">Accion</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each products.products}}
+      <tr>
+          <td><img src={{this.thumbnail}} width="100px" alt=${product.name}></td>
+          <td><h5>{{this.name}}</h5></td>
+          <td><h5>{{this.quantity}}</h5></td>
+          <td><p>${{this.price}}</p></td>
+          <td><p>${{this.price}}x{{this.quantity}}u.</p></td>
+          <td><form action=/api/cart/{{../idCart}}/products/{{this._id}}/delete method="POST">
+            <button type="submit" class="addCart m-1 mb-2 btn btn-sm btn-success" data-id={{this._id}}>Borrar</button>
+      </form></td>
+          <td><form action=/api/cart/{{../idCart}}/products/{{this._id}}/increment method="POST">
+            <button type="submit" class="addCart m-1 mb-2 btn btn-sm btn-success" data-id={{this._id}}>++</button>
+      </form></td>
+      </form></td>
+          <td><form action=/api/cart/{{../idCart}}/products/{{this._id}}/decrement method="POST">
+            <button type="submit" class="addCart m-1 mb-2 btn btn-sm btn-success" data-id={{this._id}}>--</button>
+      </form></td>
+      </tr>
+      {{/each}}
+      <tr class="text-center">
+        <td><form action="/api/order" method="POST"><button type="submit" class="m-1 mb-2 btn btn-sm btn-success justify-content-center">CONFIRMAR COMPRA</button></form></td>
+      </tr>
+    </tbody>
+</table>
+{{else}}
+<div class="container text-center bg-secondary rounded w-50 mt-4">
+  <i class="bi bi-cart-x mt-4" style="font-size: 4rem; color: rgb(224, 104, 104);"></i>
+<h1 class="text-center p-4 text-light font-monospace">No tienes productos en el Carrito</h1>
+</div>
+{{/if}}
